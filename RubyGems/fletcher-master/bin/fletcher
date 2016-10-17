@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require "yaml"
+require "thor"
+
+# Load the Fletcher core library
+require File.expand_path("../../lib/fletcher", __FILE__)
+
+# Load the Fletcher command line interface utility
+require File.expand_path("../../lib/fletcher/cli/utility", __FILE__)
+
+# Initialize the Fletcher command line utility
+Fletcher::CLI::Utility.start
