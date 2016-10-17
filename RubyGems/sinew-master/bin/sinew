@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+require "sinew"
+require "trollop"
+
+# check requirements
+if RUBY_VERSION < "1.9"
+  Sinew::Util.fatal "Sorry, Sinew requires Ruby 1.9 or higher. Please install it."
+end
+%w(curl tidy).each do |i|
+  system("which #{i} > /dev/null")
+  if $? != 0
+    Sinew::Util.fatal "Sorry, Sinew requires #{i}. Please install it."
+  end
+end
+
+# ARGV
+options = Trollop.options do
+  banner "Usage: sinew [options] <gub.sinew>"
+  opt :cache, "Set the cache directory (defaults to ~/.sinew)"
+  opt :verbose, "Dump every row"
+  opt :quiet, "Be quiet"
+end
+Trollop.die "need a .sinew file to run against" if ARGV.blank?
+
+# now run!
+ARGV.each do |i|
+  Sinew::Main.new(options.merge(file: i))
+end

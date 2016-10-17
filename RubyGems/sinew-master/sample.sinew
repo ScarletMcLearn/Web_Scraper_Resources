@@ -1,0 +1,7 @@
+get "http://httpbin.org"
+noko.css("ul li a").each do |a|
+  row = { }
+  row[:url] = a[:href]
+  row[:title] = a.text
+  csv_emit(row)
+end
